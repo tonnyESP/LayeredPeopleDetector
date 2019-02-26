@@ -17,13 +17,16 @@ from flask import Flask, jsonify, request, redirect
 # You can change this to any folder on your system
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/', methods=['GET'])
+def display_result():
+    app.send_static_file('placeholder_faces.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
@@ -76,7 +79,7 @@ def facecrop_opencv(img):
       jpg_as_text = base64.b64encode(bufferval).decode('utf-8')
 
       result = {
-          "face": str(jpg_as_text),
+          "b64_face": str(jpg_as_text),
           "x": str(x),
           "y": str(y),
           "w": str(w),
@@ -91,6 +94,8 @@ def facecrop_dlib(img):
   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
   # detect faces in the grayscale image
   rects = detector(gray, 0)
+  print(str(rects))
+  print(str(len(rects)))
   # loop over the face detections
   if len(rects) > 0:
       rect = rects[0]
@@ -105,7 +110,6 @@ def facecrop_dlib(img):
       for (x, y) in shape:
           cv2.circle(img, (x, y), 2, (0, 255, 0), -1)
       '''
-      print(str(rect))
       x = rect.tl_corner().x
       y = rect.tl_corner().y
 
@@ -117,7 +121,7 @@ def facecrop_dlib(img):
       jpg_as_text = base64.b64encode(bufferval).decode('utf-8')
 
       result = {
-          "face": str(jpg_as_text),
+          "b64_person": str(jpg_as_text),
           "x": str(x),
           "y": str(y),
           "w": str(w),
@@ -185,7 +189,7 @@ def person_detector(img):
                 cv2.imwrite('results/person_'+str(i+1)+'.jpg', person_bb)
 
                 detected_person["bbox_body"] = {
-                    "face": str(jpg_as_text),
+                    "b64_person": str(jpg_as_text),
                     "x": str(xLeftBottom_),
                     "y": str(yLeftBottom_),
                     "w": str(xRightTop_ - xLeftBottom_),
@@ -196,13 +200,13 @@ def person_detector(img):
                 if person_face_bb_dlib is not None:
                   detected_person["bboxface_dlib"] = person_face_bb_dlib;
                   #with open('results/person_'+str(i+1)+'_face_dlib.jpg', "wb") as fh:
-                  #  fh.write(base64.decodestring(person_face_bb_dlib["face"]))
+                  #  fh.write(base64.decodestring(person_face_bb_dlib["b64_person"]))
 
                 person_face_bb_opcv = facecrop_opencv(person_bb.copy())
                 if person_face_bb_opcv is not None:
                   detected_person["bboxface_opcv"] = person_face_bb_opcv
                   #with open('results/person_'+str(i+1)+'_face_opencv.jpg', "wb") as fh:
-                  #  fh.write(base64.decodestring(person_face_bb_opcv["face"]))
+                  #  fh.write(base64.decodestring(person_face_bb_opcv["b64_person"]))
                 
                 result.append(detected_person);
 
