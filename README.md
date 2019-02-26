@@ -77,10 +77,10 @@
 - Neutral
 
 ### Aproximaciones
-https://github.com/thoughtworksarts/EmoPy
-https://github.com/serengil/tensorflow-101/blob/master/python/facial-expression-recognition-from-stream.py (http://sefiks.com/2018/01/10/real-time-facial-expression-recognition-on-streaming-data/)
-https://github.com/amineHorseman/facial-expression-recognition-using-cnn
-https://github.com/ShawDa/facial-expression-recognition
+- https://github.com/thoughtworksarts/EmoPy
+- https://github.com/serengil/tensorflow-101/blob/master/python/facial-expression-recognition-from-stream.py (http://sefiks.com/2018/01/10/real-time-facial-expression-recognition-on-streaming-data/)
+- https://github.com/amineHorseman/facial-expression-recognition-using-cnn
+- https://github.com/ShawDa/facial-expression-recognition
 
 # Resultado final esperado
 
