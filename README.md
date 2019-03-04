@@ -13,7 +13,7 @@
 - Control de sesiones
 
 ### Aproximaciones:
-- Las que devuelven un esqueleto de 18 puntos 
+- Las que devuelven la pose con un esqueleto de 18 puntos 
     - OpenPose - https://github.com/CMU-Perceptual-Computing-Lab/openpose
     - OpenVino - https://software.intel.com/en-us/openvino-toolkit
     - Keras: con pesos de openPose - https://github.com/michalfaber/keras_Realtime_Multi-Person_Pose_Estimation
@@ -33,10 +33,11 @@
 ```
 
 ### Grupos de Trabajo en Detección de peronas
-- Objetivo: Comparar Yolo vs Faster RCNN vs MobileNet SSD
+- Objetivo: Comparar Yolo vs Faster RCNN vs MobileNet SSD.
 	- Obtener un dataset de vídeo etiquetado de personas. (O generarlo manualmente).
 	- Evaluar rendimiento obtenido para cada aproximación. (Acierto nº de personas)
 	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+		- Por ejemplo, a partir de modelos que devuelven la pose de la persona detectada (esqueleto). 
 
 ## Detección de caras
 ### Input:
