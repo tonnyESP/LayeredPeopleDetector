@@ -25,19 +25,21 @@
 	- MobileNet SSD Object Detection - https://github.com/djmv/MobilNet_SSD_opencv
 
 
-### Evaluación:
-- Numero de aciertos en el número de personas por frame
-- Formato (por frame):  
-```csv
- [id_frame, time_stamp, Bbox(min,max), probabilidad (certeza del dato))]  
-```
-
 ### Grupos de Trabajo en Detección de peronas
 - Objetivo: Comparar Yolo vs Faster RCNN vs MobileNet SSD.
 	- Obtener un dataset de vídeo etiquetado de personas. (O generarlo manualmente).
 	- Evaluar rendimiento obtenido para cada aproximación. (Acierto nº de personas)
 	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
 		- Por ejemplo, a partir de modelos que devuelven la pose de la persona detectada (esqueleto). 
+
+#### Evaluación por cada modelo:
+- Numero de aciertos en el número de personas por frame
+- Formato (por frame) en csv:  
+```csv
+ [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, bbox_min_x, bbox_min_y, bbox_width, bbox_height, score (certeza) ]  
+```
+
+
 
 ## Detección de caras
 ### Input:
@@ -67,6 +69,12 @@
 	- Evaluar rendimiento obtenido para cada aproximación. (Acierto posición de la cara)
 	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
 
+#### Evaluación por cada modelo:
+- Acierto en overlap de la bounding box de la cara (Mean IOU - Intersección sobre la unión)
+- Formato (por frame) en csv: 
+```csv
+ [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, bbox_min_x, bbox_min_y, bbox_width, bbox_height, score (certeza) ]  
+```
 
 
 ## Predicción de Género y Edad (etnia)
@@ -81,8 +89,15 @@
 ### Grupos de Trabajo en Predicción de Género / Edad / Etnia / ...
 - Objetivo: A partir de la Bounding Box de la cara (imagen rgb), extraer las características de género y edad (y otras como etnia si fuera posible)
 	- Obtener un dataset de caras etiquetado con edad y género. (O generarlo manualmente).
-	- Evaluar rendimiento obtenido para cada aproximación. (Acierto de edad y género) - Calcular el error medio cuadrático y error medio absoluto de las predicciones obtenidas para cada característica.
+	- Evaluar rendimiento obtenido para cada aproximación. (Acierto de edad y género)
 	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+	
+#### Evaluación por cada modelo:
+- Calcular el error medio cuadrático y error medio absoluto de las predicciones obtenidas para cada característica.
+- Formato (por frame) en csv: 
+```csv
+ [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, predicted_age, predicted_genre ]  
+```
 
 
 ## Predicción de Emociones
@@ -113,6 +128,14 @@
 		- FER2013 - https://github.com/Microsoft/FERPlus
 	- Evaluar rendimiento obtenido para cada aproximación.
 	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+
+#### Evaluación por cada modelo:
+- Matriz de confusión para cada emoción como se cita en FER2013
+![Matriz de confusión por emociones](https://github.com/tonnyESP/LayeredPeopleDetector/emotion_confusion_matrix.png)
+- Formato (por frame) en csv: 
+```csv
+ [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, predicted_age, predicted_genre ]  
+```
 
 
 # Resultado final esperado
