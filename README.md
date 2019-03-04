@@ -134,7 +134,7 @@
 ![Matriz de confusión por emociones](https://raw.githubusercontent.com/tonnyESP/LayeredPeopleDetector/master/emotion_confusion_matrix.png)
 - Formato (por frame) en csv: 
 ```csv
- [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, predicted_age, predicted_genre ]  
+ [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, score_neutral, score_happiness, score_surprise, score_sadness, score_anger, score_disgust, score_fear, score_contempt ]  
 ```
 
 
