@@ -131,7 +131,7 @@
 
 #### Evaluación por cada modelo:
 - Matriz de confusión para cada emoción como se cita en FER2013
-![Matriz de confusión por emociones](https://github.com/tonnyESP/LayeredPeopleDetector/emotion_confusion_matrix.png)
+![Matriz de confusión por emociones](https://raw.githubusercontent.com/tonnyESP/LayeredPeopleDetector/master/emotion_confusion_matrix.png)
 - Formato (por frame) en csv: 
 ```csv
  [id_frame (o id_imagen si no se trabaja en vídeo), time_stamp, predicted_age, predicted_genre ]  
