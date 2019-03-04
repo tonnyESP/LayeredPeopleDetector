@@ -31,6 +31,13 @@
 ```csv
  [id_frame, time_stamp, Bbox(min,max), probabilidad (certeza del dato))]  
 ```
+
+### Grupos de Trabajo en Detección de peronas
+- Objetivo: Comparar Yolo vs Faster RCNN vs MobileNet SSD
+	- Obtener un dataset de vídeo etiquetado de personas. (O generarlo manualmente).
+	- Evaluar rendimiento obtenido para cada aproximación. (Acierto nº de personas)
+	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+
 ## Detección de caras
 ### Input:
 - Imagen RGB
@@ -53,6 +60,14 @@
 	- Reconocimiento facial - https://github.com/ageitgey/face_recognition (https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/)
 	- Face clustering - https://www.pyimagesearch.com/2018/07/09/face-clustering-with-python/
 
+### Grupos de Trabajo en Face segmentation
+- Objetivo: A partir de la Bounding Box de la persona (imagen rgb), extraer la posición de la cara más probable (bounding box) - OpenCV vs dlib vs deep learning
+	- Obtener un dataset de caras etiquetado. (O generarlo manualmente).
+	- Evaluar rendimiento obtenido para cada aproximación. (Acierto posición de la cara)
+	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+
+
+
 ## Predicción de Género y Edad (etnia)
 ### Input
 - Crop de la BB de la cara extraída en Detección de caras
@@ -60,6 +75,14 @@
 ### Output:
 - Edad numérico (¿Rangos?)
 - Género numérico (0, 1, probabilidad)
+
+
+### Grupos de Trabajo en Predicción de Género / Edad / Etnia / ...
+- Objetivo: A partir de la Bounding Box de la cara (imagen rgb), extraer las características de género y edad (y otras como etnia si fuera posible)
+	- Obtener un dataset de caras etiquetado con edad y género. (O generarlo manualmente).
+	- Evaluar rendimiento obtenido para cada aproximación. (Acierto de edad y género) - Calcular el error medio cuadrático y error medio absoluto de las predicciones obtenidas para cada característica.
+	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+
 
 ## Predicción de Emociones
 ### Input
@@ -81,6 +104,15 @@
 - https://github.com/serengil/tensorflow-101/blob/master/python/facial-expression-recognition-from-stream.py (http://sefiks.com/2018/01/10/real-time-facial-expression-recognition-on-streaming-data/)
 - https://github.com/amineHorseman/facial-expression-recognition-using-cnn
 - https://github.com/ShawDa/facial-expression-recognition
+
+
+### Grupos de Trabajo en Predicción de emociones
+- Objetivo: A partir de la Bounding Box de la cara (imagen rgb), extraer el estado emocional de la persona 
+	- Obtener un dataset de caras etiquetado. (O generarlo manualmente).
+		- FER2013 - https://github.com/Microsoft/FERPlus
+	- Evaluar rendimiento obtenido para cada aproximación.
+	- Maximizar rendimiento calibrando los modelos o buscando nuevos que mejoren los anteriores.
+
 
 # Resultado final esperado
 
