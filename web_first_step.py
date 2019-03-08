@@ -4,7 +4,7 @@ import argparse
 import cv2 
 import os
 import sys
-
+import time
 from PIL import Image
 
 #from imutils import face_utils
@@ -12,21 +12,21 @@ import dlib
 
 import base64
 
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, render_template
 
 # You can change this to any folder on your system
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path='/static', template_folder='/templates')
 
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['GET'])
+@app.route('/display/', methods=['GET'])
 def display_result():
-    app.send_static_file('placeholder_faces.html')
+    return render_template('placeholder_faces.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
@@ -43,11 +43,15 @@ def upload_image():
         if file and allowed_file(file.filename):
             
             filename = file.filename # save file 
-            filepath = os.path.join('', filename);
+            filepath = os.path.join('', filename)
             file.save(filepath)
             image = cv2.imread(filepath)            
 
-            return jsonify(person_detector(image))
+            
+            
+            to_return = person_detector(image)
+            
+            return jsonify()
 
     # If no valid image file was uploaded, show the file upload form:
     return '''
@@ -137,6 +141,9 @@ def person_detector(img):
     heightFactor = img.shape[0]/300.0
     widthFactor = img.shape[1]/300.0 
 
+    tic = time.time()
+
+
     # MobileNet requires fixed dimensions for input image(s)
     # so we have to ensure that it is resized to 300x300 pixels.
     # set a scale factor to image because network the objects has differents size. 
@@ -149,6 +156,9 @@ def person_detector(img):
     
     #Prediction of network
     detections = net.forward()
+
+    toc = time.time()
+    print ("MobileSSD time : "+ str(toc-tic) + " seconds")
 
     #Size of img resize (300x300)
     cols = img_resized.shape[1] 
@@ -164,6 +174,9 @@ def person_detector(img):
             # Draw label and confidence of prediction in frame resized
             #if class_id in [classNames]:
             if class_id == 15: # Only detect people
+
+
+                tic = time.time()
 
                 detected_person = {}
 
@@ -186,7 +199,7 @@ def person_detector(img):
                 retval, bufferval = cv2.imencode('.jpg', person_bb)
                 jpg_as_text = base64.b64encode(bufferval).decode('utf-8')
 
-                cv2.imwrite('results/person_'+str(i+1)+'.jpg', person_bb)
+                #cv2.imwrite('results/person_'+str(i+1)+'.jpg', person_bb)
 
                 detected_person["bbox_body"] = {
                     "b64_person": str(jpg_as_text),
@@ -195,14 +208,29 @@ def person_detector(img):
                     "w": str(xRightTop_ - xLeftBottom_),
                     "h": str(yRightTop_ - yLeftBottom_)
                 }
+
+                toc = time.time()
+                print ("\t Crop person "+str(i)+" : "+ str(toc-tic) + " seconds")
+
                 # detect faces in the grayscale image
+                tic = time.time()
                 person_face_bb_dlib = facecrop_dlib(person_bb.copy())
+
+                toc = time.time()
+                print ("\t\t Crop face person "+str(i)+" : "+ str(toc-tic) + " seconds")
+
                 if person_face_bb_dlib is not None:
                   detected_person["bboxface_dlib"] = person_face_bb_dlib;
                   #with open('results/person_'+str(i+1)+'_face_dlib.jpg', "wb") as fh:
                   #  fh.write(base64.decodestring(person_face_bb_dlib["b64_person"]))
 
+                tic = time.time()
+
                 person_face_bb_opcv = facecrop_opencv(person_bb.copy())
+
+                toc = time.time()
+                print ("\t\t Crop face person "+str(i)+" : "+ str(toc-tic) + " seconds")
+
                 if person_face_bb_opcv is not None:
                   detected_person["bboxface_opcv"] = person_face_bb_opcv
                   #with open('results/person_'+str(i+1)+'_face_opencv.jpg', "wb") as fh:
@@ -250,5 +278,5 @@ net = cv2.dnn.readNetFromCaffe(prototxt, weights)
 ###################################################################################################
 
 if __name__ == "__main__":
-    global detector, predictor;
+    
     app.run(host='0.0.0.0', port=5001, debug=True)
