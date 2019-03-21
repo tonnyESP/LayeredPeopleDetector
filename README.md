@@ -146,7 +146,9 @@
 "bbox_face":{ "coords" : [[x, y], [x', y']], "image": '' },
 "skeleton": [ ],
 "facial_landmarks": "",
-"emotions": ""
+"emotions": "",
+"age": "",
+"genre": ""
 
 }
 ```
