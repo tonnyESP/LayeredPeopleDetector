@@ -152,3 +152,15 @@
 
 }
 ```
+
+
+
+# TODO:
+Añadir links:
+
+- https://github.com/liuwei16/CSP (Estado del arte con código "High-level Semantic Feature Detection: A New Perspective for Pedestrian Detection, CVPR, 2019")
+- http://www.robots.ox.ac.uk/~lav/Research/Projects/2009bbenfold_headpose/project.html (Dataset Oxford)
+- https://blog.nanonets.com/human-pose-estimation-2d-guide/ (Guía 2019 para pose estimation)
+
+
+
