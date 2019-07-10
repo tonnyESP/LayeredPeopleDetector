@@ -163,3 +163,5 @@ Añadir links:
 - https://blog.nanonets.com/human-pose-estimation-2d-guide/ (Guía 2019 para pose estimation)
 
 - https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/ Mantener el tracking del objeto
+- https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6907688 (https://www.youtube.com/watch?v=m-_t_aIlQwg) Real-Time RGB-D based People Detection and Tracking for Mobile
+Robots and Head-Worn Cameras
