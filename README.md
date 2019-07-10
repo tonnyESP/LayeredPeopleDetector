@@ -162,5 +162,4 @@ Añadir links:
 - http://www.robots.ox.ac.uk/~lav/Research/Projects/2009bbenfold_headpose/project.html (Dataset Oxford)
 - https://blog.nanonets.com/human-pose-estimation-2d-guide/ (Guía 2019 para pose estimation)
 
-
-
+- https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/ Mantener el tracking del objeto
