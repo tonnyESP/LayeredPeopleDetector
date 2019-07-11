@@ -1,5 +1,7 @@
 # PeopleDetection - Detector por capas
 
+![main concept](https://github.com/tonnyESP/LayeredPeopleDetector/blob/master/layers.jpg?raw=true)
+
 ## Detección de personas
 ### Input:
 - Imagen RGB
